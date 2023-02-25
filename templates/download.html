@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>File Download</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+        background-image: url('/static/bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+      }
+      
+      h1,h2 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 24px;
+        text-align: center;
+        color: white;
+      }
+      
+      .download-link {        
+        padding: 7px;
+        display: block;
+        margin-top: 40px;
+        text-align: center;
+        color: white;
+      }
+      
+     
+    </style>
+  </head>
+  <body>
+    <h1>File Download</h1>
+    <h2>Download the modified file:</h2>
+    <a href="/download?filename={{ value }}" class="download-link">{{value}}</a>
+  </body>
+</html>
