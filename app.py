@@ -3,11 +3,14 @@ import pandas as pd
 from openpyxl import load_workbook
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import datetime
+
+now = datetime.date.today()
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', message='welcome imei checker!')
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -19,7 +22,7 @@ def upload():
         wb = load_workbook(file)
         sheet = wb.active
     except:
-        return render_template('index.html')
+        return render_template('index.html',  message='Please upload a file in .xlsx format!')
     val =""
 
     driver = webdriver.Chrome('E:\\chromedriver')
@@ -35,7 +38,7 @@ def upload():
             #search_bar.send_keys(Keys.RETURN)
             button = driver.find_element(By.XPATH,'//*[@id="submit"]')
             button.click()
-            driver.implicitly_wait(10)
+            driver.implicitly_wait(15)
             
         except:
             listval.append("malformed value")
@@ -64,7 +67,7 @@ def upload():
     df['model'] = listval
 
 
-    modified_file = 'new_' + file.filename
+    modified_file =  str(now) +"_" + file.filename
     df.to_excel(modified_file, index=False)
     driver.close()
     return render_template('download.html', value=modified_file)
